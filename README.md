@@ -2,6 +2,8 @@
 
 React와 Next.js에서 사용할 수 있는 입체형 리퀴드 글라스 버튼 컴포넌트입니다.
 
+[![Liquid Glass Button collection](preview.png)](preview.html)
+
 `preview.html`을 브라우저에서 열면 설치 없이 네 가지 재질과 호버·클릭 효과를 확인할 수 있습니다.
 
 첨부 영상의 두꺼운 캡슐형 유리, 어두운 반사면과 흐르는 색을 CSS 레이어로 재해석한 버튼 4종입니다. 이번 버전은 볼록한 렌즈의 입체감을 강조합니다. 중앙의 어두운 반사면, 양 끝의 곡면 반사, 하단에 모이는 밝은 굴절광, 접촉 그림자와 넓은 그림자를 각각 겹칩니다. `border: 0`을 유지하면서 그라디언트의 명암으로 두께를 표현합니다. 원본의 3D 굴절을 픽셀 단위로 복제한 구현은 아닙니다. 외부 이미지·폰트·애니메이션 패키지 없이 동작합니다.
@@ -14,6 +16,7 @@ React와 Next.js에서 사용할 수 있는 입체형 리퀴드 글라스 버튼
 - `GlassButton.tsx`: React/Next.js용 TypeScript 컴포넌트. 포인터 반사광·기울기·클릭 파동 포함.
 - `Demo.tsx`: React 사용 예시. 검색/AI/오디오 기능은 연결하지 않은 UI 데모.
 - `preview.html`: 설치 없이 브라우저에서 열어보는 단독 데모. 동일 CSS를 내장했습니다.
+- `preview.png`: README에 넣는 데모 캡처. 라이브 인터랙션은 `preview.html`에서 확인하세요.
 
 ## Next.js App Router
 

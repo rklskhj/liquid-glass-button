@@ -1,0 +1,25 @@
+{
+  "name": "third-mirror-glass-button",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Convex liquid-glass button component for React and Next.js",
+  "sideEffects": [
+    "./glass-button.css"
+  ],
+  "files": [
+    "GlassButton.tsx",
+    "glass-button.css",
+    "index.ts"
+  ],
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "keywords": [
+    "react",
+    "nextjs",
+    "button",
+    "liquid-glass",
+    "css"
+  ]
+}
+

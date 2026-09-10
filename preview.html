@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liquid Glass · Button collection</title>
+<style>/* Liquid glass buttons — convex lens finish without a decorative border. */
+.lg-button {
+  --lg-height: 60px;
+  --lg-radius: 999px;
+  --lg-blur: 12px;
+  --lg-color: #fff;
+  --lg-accent: #b693ff;
+  --lg-duration: 5s;
+  --lg-depth: 1;
+  --lg-reflection: .9;
+  --lg-x: 50%;
+  --lg-y: 30%;
+  --lg-rx: 0deg;
+  --lg-ry: 0deg;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--lg-height);
+  max-width: 100%;
+  padding: 0 32px;
+  border: 0;
+  border-radius: var(--lg-radius);
+  background: #100c21;
+  color: var(--lg-color);
+  font: inherit;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  overflow: hidden;
+  vertical-align: middle;
+  transform: perspective(700px) rotateX(var(--lg-rx)) rotateY(var(--lg-ry));
+  box-shadow: 0 5px 7px -3px rgb(0 0 0 / .5), 0 18px 24px -9px rgb(0 0 0 / .7);
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, opacity 220ms ease;
+}
+/* Decorative layers stay behind the label and never intercept input. */
+.lg-button__material, .lg-button__shine, .lg-button__ripple {
+  position: absolute;
+  pointer-events: none;
+}
+.lg-button__material {
+  z-index: -3;
+  inset: -12%;
+  background:
+    radial-gradient(ellipse 42% 66% at 23% -8%, #09011d 88%, rgb(9 1 29 / .94) 94%, transparent 100%),
+    radial-gradient(ellipse 42% 61% at 79% -8%, #09011d 87%, rgb(9 1 29 / .92) 94%, transparent 100%),
+    radial-gradient(ellipse at 7% 46%, #ff9e1b, transparent 32%),
+    radial-gradient(ellipse at 47% 45%, #00ffd2, transparent 32%),
+    radial-gradient(ellipse at 88% 47%, #bc00fb, transparent 36%),
+    linear-gradient(180deg, #09011d 12%, #451253 42%, #8f749d 65%, #b6c0b6 84%, #e3e5dc);
+  filter: blur(1.5px) saturate(1.2);
+  animation: lg-liquid var(--lg-duration) ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.lg-button::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 12% 80% at -3% 48%, rgb(246 250 255 / .72), transparent 78%),
+    radial-gradient(ellipse 11% 85% at 103% 55%, rgb(224 224 255 / .6), transparent 80%),
+    radial-gradient(ellipse 70% 55% at 50% -23%, rgb(226 223 255 / .38), transparent 95%),
+    linear-gradient(180deg, rgb(232 227 255 / .28) 0%, rgb(156 161 212 / .08) 7%, transparent 19% 52%, rgb(0 0 0 / .12) 64%, transparent 73%, rgb(255 255 255 / .3) 89%, rgb(252 255 248 / .85) 100%);
+  opacity: var(--lg-depth);
+}
+/* Light gathers inside the lower lens; it does not draw a perimeter stroke. */
+.lg-button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 68% 4% 1%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 86%, rgb(255 255 255 / .8), rgb(249 250 255 / .25) 38%, transparent 72%);
+  filter: blur(2px);
+  opacity: var(--lg-reflection);
+  transform: translateX(calc((var(--lg-x) - 50%) * -.08));
+  transition: transform 260ms ease;
+}
+.lg-button__shine {
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 35% 65% at var(--lg-x) var(--lg-y), rgb(255 255 255 / .42), transparent 75%),
+    radial-gradient(ellipse 46% 35% at 37% 0%, rgb(223 229 255 / .22), transparent 84%);
+  opacity: .3;
+  transition: opacity 220ms ease;
+}
+.lg-button__label {
+  display: inline-flex;
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding-block: 10px;
+  overflow-wrap: anywhere;
+  text-shadow: 0 2px 3px rgb(0 0 0 / .6), 0 0 12px rgb(0 0 0 / .18);
+}
+.lg-button__label > svg { width: 1.1em; height: 1.1em; flex-shrink: 0; }
+.lg-button[data-variant="chrome"] { --lg-accent: #ded5c7; background: #17181a; }
+.lg-button[data-variant="chrome"] .lg-button__material {
+  background:
+    radial-gradient(ellipse 70% 38% at 67% 49%, #050506 28%, rgb(5 5 6 / .9) 54%, transparent 83%),
+    linear-gradient(103deg, transparent 15%, #d0b594 19%, #4c4136 23%, transparent 27% 49%, rgb(217 216 210 / .75) 51%, rgb(126 124 124 / .4) 67%, transparent 71%),
+    linear-gradient(185deg, #848485 8%, #525153 27%, #121216 49% 58%, #626268 80%, #dedee0);
+  filter: blur(1.7px);
+}
+.lg-button[data-variant="prism"] { --lg-accent: #50eaff; background: #8d073b; }
+.lg-button[data-variant="prism"] .lg-button__material {
+  background:
+    radial-gradient(ellipse at 8% 55%, #001c98, transparent 24%),
+    radial-gradient(ellipse at 37% 36%, #02eced 0% 16%, transparent 44%),
+    radial-gradient(ellipse at 82% 46%, #e10024 0% 22%, transparent 49%),
+    linear-gradient(105deg, #0349a2, #04c2d5 40%, #c21944 60%, #a00022);
+  filter: blur(2px) saturate(1.25);
+}
+.lg-button[data-variant="smoke"] { --lg-accent: #c1c7e2; background: #13131c; }
+.lg-button[data-variant="smoke"] .lg-button__material {
+  background:
+    radial-gradient(ellipse 71% 79% at 41% -29%, #74777a 0% 84%, #4c4e53 93%, transparent 100%),
+    radial-gradient(ellipse 80% 56% at 53% 122%, #d4d6d7 0% 64%, #909499 81%, transparent 100%),
+    linear-gradient(160deg, #292736, #05050d 42%, #15131e 65%, #797b83);
+  filter: blur(1.4px);
+}
+.lg-button[data-size="sm"] { --lg-height: 44px; padding-inline: 22px; }
+.lg-button[data-size="lg"] { --lg-height: 72px; padding-inline: 42px; }
+.lg-button[data-icon-only="true"] { width: var(--lg-height); padding-inline: 0; flex-shrink: 0; }
+.lg-button[data-full-width="true"] { width: 100%; }
+.lg-button[data-animate="true"] .lg-button__material,
+.lg-button[data-loading="true"] .lg-button__material { animation-play-state: running; }
+@media (hover: hover) and (pointer: fine) {
+  .lg-button:not(:disabled):hover {
+    transform: perspective(700px) translateY(-3px) rotateX(var(--lg-rx)) rotateY(var(--lg-ry)) scale(1.025);
+    box-shadow: 0 8px 10px -5px rgb(0 0 0 / .5), 0 23px 32px -10px rgb(0 0 0 / .75), 0 9px 30px -20px var(--lg-accent);
+  }
+  .lg-button:not(:disabled):hover .lg-button__shine { opacity: .8; }
+  .lg-button:not(:disabled):hover .lg-button__material { animation-play-state: running; }
+}
+.lg-button:not(:disabled):active {
+  transform: perspective(700px) translateY(1px) scale(.965);
+  box-shadow: 0 4px 8px -4px rgb(0 0 0 / .65);
+  transition-duration: 85ms;
+}
+.lg-button:focus-visible { outline: 3px solid var(--lg-accent); outline-offset: 5px; }
+.lg-button[aria-pressed="true"] { box-shadow: 0 8px 30px -12px var(--lg-accent), 0 12px 28px -12px rgb(0 0 0 / .55); }
+.lg-button[aria-pressed="true"] .lg-button__shine { opacity: .65; }
+.lg-button:disabled { cursor: not-allowed; opacity: .45; }
+.lg-button:disabled .lg-button__material { animation-play-state: paused; }
+.lg-button[data-loading="true"] { cursor: progress; opacity: .85; }
+.lg-button[data-loading="true"] .lg-button__material { animation-play-state: running; }
+.lg-button__ripple {
+  z-index: 0;
+  left: var(--lg-ripple-x, 50%);
+  top: var(--lg-ripple-y, 50%);
+  width: var(--lg-ripple-size, 300px);
+  height: var(--lg-ripple-size, 300px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 255 255 / .22), rgb(255 255 255 / .12) 30%, transparent 68%);
+  animation: lg-ripple 650ms ease-out both;
+}
+@keyframes lg-liquid {
+  0% { transform: translate(-3%, 2%) rotate(-5deg) scale(1.04); }
+  50% { transform: translate(3%, -1%) rotate(3deg) scale(1.1); }
+  100% { transform: translate(-1%, 3%) rotate(-2deg) scale(1.04); }
+}
+@keyframes lg-ripple {
+  from { transform: translate(-50%, -50%) scale(0); opacity: .8; }
+  to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .lg-button { background: rgb(10 10 18 / .62); -webkit-backdrop-filter: blur(var(--lg-blur)); backdrop-filter: blur(var(--lg-blur)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lg-button, .lg-button__shine, .lg-button::after { transition: none; }
+  .lg-button .lg-button__material, .lg-button .lg-button__ripple { animation: none; }
+  .lg-button:not(:disabled):hover, .lg-button:not(:disabled):active, .lg-button { transform: none; }
+  .lg-button__ripple { display: none; }
+  .lg-button::after { transform: none; }
+}
+@media (forced-colors: active) {
+  .lg-button { border: 1px solid ButtonText; color: ButtonText; background: ButtonFace; }
+  .lg-button__material, .lg-button__shine, .lg-button__ripple, .lg-button::before, .lg-button::after { display: none; }
+  .lg-button__label { text-shadow: none; }
+  .lg-button:focus-visible, .lg-button[aria-pressed="true"] { outline: 2px solid Highlight; outline-offset: 3px; }
+}
+</style>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #111716; color: #f5f6f4; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width: 1080px; margin: auto; padding: 52px 36px 36px; }
+header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-bottom: 38px; border-bottom: 1px solid #ffffff18; }
+.eyebrow { color: #a1afaa; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+h1 { margin: 12px 0; font-size: clamp(28px, 5vw, 44px); letter-spacing: -.055em; font-weight: 500; }
+p { color: #a7b2ad; font-size: 13px; line-height: 1.7; margin: 0; }
+.edition { font-size: 12px; color: #99a49e; white-space: nowrap; }
+.collection { display: grid; grid-template-columns: 1fr 1fr; }
+.specimen { min-width: 0; padding: 28px 24px 24px; border-bottom: 1px solid #ffffff18; }
+.specimen:nth-child(odd) { border-right: 1px solid #ffffff18; }
+.meta { display: flex; justify-content: space-between; gap: 12px; color: #a5b0ab; font-size: 11px; letter-spacing: .1em; }
+.stage { min-height: 165px; display: flex; align-items: center; justify-content: center; }
+.stage .lg-button { width: 268px; --lg-height: 80px; font-size: 23px; letter-spacing: -.04em; }
+.caption { font-size: 12px; color: #93a29b; }
+.states { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-top: 30px; }
+.states .lg-button { font-size: 14px; }
+footer { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; margin-top: 26px; font-size: 12px; color: #a4b1a9; }
+.motion { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+input { accent-color: #b693ff; width: 16px; height: 16px; }
+@media(max-width: 600px) { main { padding: 30px 20px; } header { align-items: flex-start; } .edition { display: none; } .collection { grid-template-columns: 1fr; } .specimen { padding-inline: 4px; } .specimen:nth-child(odd) { border-right: 0; } .stage { min-height: 144px; } .stage .lg-button { width: 250px; --lg-height: 72px; font-size: 21px; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div><div class="eyebrow">Material studies / 03 · Convex glass</div><h1>Liquid, at your fingertips.</h1><p>볼록한 유리 표면과 하단에 모이는 빛. 마우스를 움직이고 눌러보세요.</p></div>
+    <div class="edition">LIQUID GLASS<br><br>BUTTON COLLECTION</div>
+  </header>
+  <section class="collection" aria-label="글라스 버튼 4종">
+    <article class="specimen"><div class="meta"><span>01 / AURORA</span><span>IRIDESCENT</span></div><div class="stage"><button type="button" class="lg-button" data-variant="aurora" data-animate="true"><span class="lg-button__material" aria-hidden="true"></span><span class="lg-button__shine" aria-hidden="true"></span><span class="lg-button__label">Thinking…</span></button></div><div class="caption">짙은 바이올렛 · 흐르는 무지개빛</div></article>
+    <article class="specimen"><div class="meta"><span>02 / CHROME</span><span>REFLECTIVE</span></div><div class="stage"><button type="button" class="lg-button" data-variant="chrome" data-animate="true"><span class="lg-button__material" aria-hidden="true"></span><span class="lg-button__shine" aria-hidden="true"></span><span class="lg-button__label">Searching…</span></button></div><div class="caption">금속 반사 · 깊은 블랙</div></article>
+    <article class="specimen"><div class="meta"><span>03 / PRISM</span><span>CHROMATIC</span></div><div class="stage"><button type="button" class="lg-button" data-variant="prism" data-animate="true"><span class="lg-button__material" aria-hidden="true"></span><span class="lg-button__shine" aria-hidden="true"></span><span class="lg-button__label">Planning…</span></button></div><div class="caption">선명한 청록 · 붉은 액체</div></article>
+    <article class="specimen"><div class="meta"><span>04 / SMOKE</span><span>SCULPTED</span></div><div class="stage"><button type="button" class="lg-button" data-variant="smoke" data-animate="true"><span class="lg-button__material" aria-hidden="true"></span><span class="lg-button__shine" aria-hidden="true"></span><span class="lg-button__label">Listening…</span></button></div><div class="caption">어두운 유리 · 부드러운 실버</div></article>
+  </section>
+  <div class="states" aria-label="버튼 상태 예시">
+    <button type="button" class="lg-button" data-size="sm" data-variant="chrome" aria-pressed="false" data-toggle="true"><span class="lg-button__material" aria-hidden="true"></span><span class="lg-button__shine" aria-hidden="true"></span><span class="lg-button__label">즐겨찾기</span></button>
+    <button type="button" class="lg-button" data-size="sm" data-loading="true" aria-busy="true" disabled><span class="lg-button__material" aria-hidden="true"></span><span class="lg-button__shine" aria-hidden="true"></span><span class="lg-button__label">생성 중…</span></button>
+    <button type="button" class="lg-button" data-size="sm" data-variant="smoke" disabled><span class="lg-button__material" aria-hidden="true"></span><span class="lg-button__shine" aria-hidden="true"></span><span class="lg-button__label">비활성</span></button>
+  </div>
+  <footer><span role="status" id="feedback">Hover to illuminate. Press to ripple.</span><label class="motion"><input type="checkbox" id="ambient" checked>지속 애니메이션</label></footer>
+</main>
+<script>
+document.querySelectorAll('.lg-button').forEach(button => {
+  button.addEventListener('pointermove', event => {
+    if (button.disabled || event.pointerType !== 'mouse') return;
+    const rect = button.getBoundingClientRect();
+    const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+    button.style.setProperty('--lg-x', `${x * 100}%`);
+    button.style.setProperty('--lg-y', `${y * 100}%`);
+    button.style.setProperty('--lg-rx', `${(.5 - y) * 7}deg`);
+    button.style.setProperty('--lg-ry', `${(x - .5) * 9}deg`);
+  });
+  button.addEventListener('pointerleave', () => ['--lg-x', '--lg-y', '--lg-rx', '--lg-ry'].forEach(name => button.style.removeProperty(name)));
+  button.addEventListener('click', event => {
+    if (button.disabled) return;
+    const label = button.querySelector('.lg-button__label').textContent;
+    if (button.dataset.toggle) {
+      const selected = button.getAttribute('aria-pressed') !== 'true';
+      button.setAttribute('aria-pressed', String(selected));
+      document.getElementById('feedback').textContent = selected ? '즐겨찾기에 추가했습니다.' : '즐겨찾기를 해제했습니다.';
+    } else document.getElementById('feedback').textContent = `${label} 버튼을 클릭했습니다.`;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    button.querySelector('.lg-button__ripple')?.remove();
+    const rect = button.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'lg-button__ripple';
+    ripple.setAttribute('aria-hidden', 'true');
+    ripple.style.setProperty('--lg-ripple-x', `${event.detail ? event.clientX - rect.left : rect.width / 2}px`);
+    ripple.style.setProperty('--lg-ripple-y', `${event.detail ? event.clientY - rect.top : rect.height / 2}px`);
+    ripple.style.setProperty('--lg-ripple-size', `${Math.hypot(rect.width, rect.height) * 2}px`);
+    button.append(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+  });
+});
+document.getElementById('ambient').addEventListener('change', event => {
+  document.querySelectorAll('.stage .lg-button').forEach(button => { button.dataset.animate = String(event.target.checked); });
+});
+</script>
+</body>
+</html>
